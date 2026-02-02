@@ -18,7 +18,7 @@ The tool proceeds step by step:
  ```
 python3 dork2sqlmap.py
  ``` 
-<img src="https://github.com/dokDork/Dork2sqlmap/raw/main/images/01.png">
+<img src="https://github.com/dokDork/Dork2Sqlmap/blob/main/images/01.jpg">
 
 
 Once selected the PHASE, scripts will be generated using tmux as terminal.
