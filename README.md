@@ -26,29 +26,18 @@ As mentioned, after selecting the URLs of the websites you want to analyze with 
 
 <img src="https://github.com/dokDork/Dork2Sqlmap/blob/main/images/02.jpg">
 
-  
-## Command-line parameters
-```
-./siteSniper.sh <interface> <target url>
-```
-
-| Parameter | Description                          | Example       |
-|-----------|--------------------------------------|---------------|
-| `interface`      | network interface through which the target is reached | `eth0`, `wlan0`, `tun0`, ... |
-| `target url`      | Target URL you need to test          | `http://www.example.com`          |
-
+ 
   
 ## How to install it on Kali Linux (or Debian distribution)
 It's very simple  
 ```
+pip3 install requests beautifulsoup4 --break-system-packages
+pip install playwright --break-system-packages
+playwright install
 cd /opt
-sudo git clone https://github.com/dokDork/SiteSniper.git
-cd SiteSniper 
-chmod 755 siteSniper.sh 
-./siteSniper.sh 
-```
-Optional: You can insert a shortcut to move faster through the tool.
-```
-echo "bind-key C-n run-shell \"tmux kill-session -t #{session_name}\"" >> ~/.tmux.conf
+sudo git clone https://github.com/dokDork/Dork2Sqlmap.git
+cd Dork2Sqlmap 
+chmod 755 dork2sqlmap.py 
+python3 dork2sqlmap.py
 ```
 
