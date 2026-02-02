@@ -32,8 +32,6 @@ As mentioned, after selecting the URLs of the websites you want to analyze with 
 It's very simple  
 ```
 pip3 install requests beautifulsoup4 --break-system-packages
-pip install playwright --break-system-packages
-playwright install
 cd /opt
 sudo git clone https://github.com/dokDork/Dork2Sqlmap.git
 cd Dork2Sqlmap 
