@@ -114,30 +114,36 @@ class DorkCollector:
             '"ORA-00921: unexpected end of SQL command"',
             '"Supplied argument is not a valid MySQL result resource"',
             '"You have an error in your SQL syntax near"',
-            '"mySQL error with query"'
+            '"mySQL error with query"',
+            '"ORA-00921: unexpected end of SQL command"'
+            '"supplied argument is not a valid MySQL result resource"'            
         ]
 
         dorks_parameter = [
             'inurl:index.php?id=',
+            'inurl:index.asp?id=',            
+            'inurl:.php?id=',
             'inurl:.asp?id=',
             '"You have an error in your SQL syntax"',
             'intext:"select * from"',
-            'inurl:login.php',
-            'inurl:admin/login.php',
             '"Warning: mysql_fetch_array() expects parameter 1"',
             'inurl:".php?cat="',
+            'inurl:".asp?cat="',            
             'filetype:sql "sql backup"',
             '"ORA-00933: SQL command not properly ended"',
             'inurl:product.php?id=',
+            'inurl:product.asp?id=',
             'inurl:page.php?id=',
+            'inurl:page.asp?id=',            
             'inurl:view.php?id=',
+            'inurl:view.asp?id=',            
             'inurl:.php?id= intext:"mysql"',
+            'inurl:.asp?id= intext:"mysql"',            
             'inurl:search.php?q=',
+            'inurl:search.asp?q=',            
             'filetype:sql inurl:dump',
             'filetype:env "DB_PASSWORD"',
-            'inurl:wp-content/plugins/',
-            'filetype:sql "backup"',
-            '"phpMyAdmin" "error" "db"'
+            'filetype:sql "backup"'
         ]
 
         if choice == "1":
