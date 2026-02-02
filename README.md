@@ -20,21 +20,11 @@ python3 dork2sqlmap.py
  ``` 
 <img src="https://github.com/dokDork/Dork2Sqlmap/blob/main/images/01.jpg">
 
+As mentioned, after selecting the URLs of the websites you want to analyze with sqlmap, tmux windows will be created.
+- Use 'Ctrl+b' then 'n' to navigate between windows
+- Use 'Ctrl+b' then 'd' to detach from session
 
-Once selected the PHASE, scripts will be generated using tmux as terminal.
-At this point you can select a specific SUB-PHASE using tmux commands:  
-**(CTRL + b) w**  
-<img src="https://github.com/dokDork/red-team-penetration-test-script/raw/main/images/03.png">
-
-once the SUB-PHASE has been selected you will be able to view the commands that have been pre-compiled to analyse the SUB-PHASE. At this point it is possible to selecet and execute a specific command just pressing ENTER:
-<img src="https://github.com/dokDork/red-team-penetration-test-script/raw/main/images/04.png">
-
-When you need to change penetration test PHASE and return to main manu, you need to close the tmux session. To implement this action you need to use the tmux shortcut:  
-**(CTRL + b) :kill-session**  
-or, if you configure tmux as reported in the Installation section, you can use the shortcut:
-**(CTRL + b) (CTRL + n)**  
-
-<img src="https://github.com/dokDork/red-team-penetration-test-script/raw/main/images/05.png">
+<img src="https://github.com/dokDork/Dork2Sqlmap/blob/main/images/02.jpg">
 
   
 ## Command-line parameters
