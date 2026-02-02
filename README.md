@@ -16,12 +16,10 @@ The tool proceeds step by step:
   
 ## Example Usage
  ```
-./siteSniper.sh eth0 https://www.example.com
+python3 dork2sqlmap.py
  ``` 
-<img src="https://github.com/dokDork/red-team-penetration-test-script/raw/main/images/01.png">
+<img src="https://github.com/dokDork/Dork2sqlmap/raw/main/images/01.png">
 
-select one of the penetration test PHASES you are interested in:
-<img src="https://github.com/dokDork/red-team-penetration-test-script/raw/main/images/02.png">
 
 Once selected the PHASE, scripts will be generated using tmux as terminal.
 At this point you can select a specific SUB-PHASE using tmux commands:  
