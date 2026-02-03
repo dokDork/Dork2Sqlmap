@@ -313,16 +313,15 @@ class TmuxManager:
 
         for i, url in enumerate(urls):
             host = TmuxManager.clean_url(url)
-            window_name = host.replace("://", "_").replace("/", "_")
 
-            # Create window named after host
+            # Create window (use numeric index, safe for tmux)
             subprocess.run([
                 'tmux', 'new-window',
                 '-t', self.session_name,
-                '-n', window_name
+                '-n', host.replace('.', '_')
             ])
 
-            target = f"{self.session_name}:{window_name}"
+            target = f"{self.session_name}:{i+1}"
 
             # Pane 0 → SQLMap
             sqlmap_cmd = (
@@ -331,11 +330,11 @@ class TmuxManager:
             )
             subprocess.run(['tmux', 'send-keys', '-t', target, sqlmap_cmd, 'C-m'])
 
-            # Split vertically to the right → Pane 1 (ls)
+            # Split right → Pane 1 (ls)
             subprocess.run(['tmux', 'split-window', '-h', '-t', target])
             subprocess.run(['tmux', 'send-keys', '-t', f'{target}.1', 'ls', 'C-m'])
 
-            # Split horizontally from pane 0 → Pane 2 (gobuster)
+            # Split bottom from pane 0 → Pane 2 (gobuster)
             subprocess.run(['tmux', 'split-window', '-v', '-t', f'{target}.0'])
 
             gobuster_cmd = (
@@ -346,7 +345,7 @@ class TmuxManager:
             )
             subprocess.run(['tmux', 'send-keys', '-t', f'{target}.2', gobuster_cmd, 'C-m'])
 
-            # Apply clean layout
+            # Clean layout
             subprocess.run(['tmux', 'select-layout', '-t', target, 'tiled'])
 
             print(f"✓ Setup window for host: {host}")
