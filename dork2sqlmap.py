@@ -406,6 +406,7 @@ def main():
             print(f"✓ {len(urls)} URLs configured for testing")
             print(f"✓ Each URL has SQLMap and Gobuster windows")
             print(f"\nAttaching to tmux session '{tmux_manager.session_name}'...")
+            print("Use 'Ctrl+b' then 'w' to show all windows")
             print("Use 'Ctrl+b' then 'n' to navigate between windows")
             print("Use 'Ctrl+b' then 'd' to detach from session")
             
