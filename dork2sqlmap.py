@@ -414,7 +414,7 @@ def main():
             return
         
         # Step 7: Setup tmux environment
-        print("\n[STEP 7] Setting up tmux testing environment...")
+        print("\n\033[1m[STEP 7] Setting up tmux testing environment...\033[0m")
         tmux_manager = TmuxManager()
         
         if tmux_manager.create_session():
