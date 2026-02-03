@@ -304,7 +304,7 @@ class TmuxManager:
 
     
     def setup_url_testing(self, urls):
-        """Setup tmux windows for URL testing (sqlmap + gobuster in split panes)"""
+        """Setup tmux windows for URL testing (sqlmap + ls + gobuster)"""
         if not urls:
             print("No URLs provided for testing")
             return
@@ -312,9 +312,10 @@ class TmuxManager:
         print(f"Setting up tmux windows for {len(urls)} URLs...")
 
         for i, url in enumerate(urls):
-            window_name = f"url_{i+1}"
+            host = TmuxManager.clean_url(url)
+            window_name = host.replace("://", "_").replace("/", "_")
 
-            # Create window
+            # Create window named after host
             subprocess.run([
                 'tmux', 'new-window',
                 '-t', self.session_name,
@@ -323,26 +324,33 @@ class TmuxManager:
 
             target = f"{self.session_name}:{window_name}"
 
-            # SQLMap (top pane)
+            # Pane 0 → SQLMap
             sqlmap_cmd = (
-                f'sqlmap -u "{url}" --force-ssl --random-agent --tamper=space2comment --batch --dbs'
+                f'sqlmap -u "{url}" --force-ssl '
+                f'--random-agent --tamper=space2comment --batch --dbs'
             )
-            subprocess.run(['tmux', 'send-keys', '-t', target, sqlmap_cmd])
+            subprocess.run(['tmux', 'send-keys', '-t', target, sqlmap_cmd, 'C-m'])
 
-            # Split window horizontally (top/bottom)
-            subprocess.run(['tmux', 'split-window', '-v', '-t', target])
+            # Split vertically to the right → Pane 1 (ls)
+            subprocess.run(['tmux', 'split-window', '-h', '-t', target])
+            subprocess.run(['tmux', 'send-keys', '-t', f'{target}.1', 'ls', 'C-m'])
 
-            # Gobuster (bottom pane)
-            host = TmuxManager.clean_url(url)
+            # Split horizontally from pane 0 → Pane 2 (gobuster)
+            subprocess.run(['tmux', 'split-window', '-v', '-t', f'{target}.0'])
+
             gobuster_cmd = (
-                f'gobuster dir -u {host} -x asp -w /usr/share/seclists/Discovery/Web-Content/raft-small-words-lowercase.txt'
+                f'gobuster dir -u {host} '
+                f'-x asp '
+                f'-w /usr/share/seclists/Discovery/Web-Content/'
+                f'raft-small-words-lowercase.txt'
             )
-            subprocess.run(['tmux', 'send-keys', '-t', f'{target}.1', gobuster_cmd)
+            subprocess.run(['tmux', 'send-keys', '-t', f'{target}.2', gobuster_cmd, 'C-m'])
 
-            # Optional: equalize panes
-            subprocess.run(['tmux', 'select-layout', '-t', target, 'even-vertical'])
+            # Apply clean layout
+            subprocess.run(['tmux', 'select-layout', '-t', target, 'tiled'])
 
-            print(f"✓ Setup window for URL {i+1}: {url}")
+            print(f"✓ Setup window for host: {host}")
+
 
     
     def attach_session(self):
