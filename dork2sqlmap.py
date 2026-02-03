@@ -177,24 +177,45 @@ class UserInterface:
     
     @staticmethod
     def get_dork_selection(max_number):
-        """Get user's dork selection"""
+        """Get user's dork selection (supports comma-separated values or 'all')"""
         while True:
             try:
-                selection = input(f"\nSelect dork number (1-{max_number}) or 'all': ").strip().lower()
-                
+                selection = input(
+                    f"\nSelect dork numbers (1-{max_number}), comma-separated, or 'all': "
+                ).strip().lower()
+
                 if selection == 'all':
                     return 'all'
-                elif selection.isdigit():
-                    num = int(selection)
-                    if 1 <= num <= max_number:
-                        return num - 1  # Convert to 0-based index
-                    else:
-                        print(f"Please enter a number between 1 and {max_number}")
-                else:
-                    print("Please enter a valid number or 'all'")
+
+                parts = [p.strip() for p in selection.split(',')]
+
+                if not parts:
+                    raise ValueError
+
+                indices = []
+                for part in parts:
+                    if not part.isdigit():
+                        raise ValueError
+
+                    num = int(part)
+                    if not (1 <= num <= max_number):
+                        raise ValueError
+
+                    indices.append(num - 1)
+
+                indices = list(dict.fromkeys(indices))
+
+                return indices
+
+            except ValueError:
+                print(
+                    f"Please enter valid numbers between 1 and {max_number}, "
+                    "separated by commas, or 'all'"
+                )
             except KeyboardInterrupt:
                 print("\nOperation cancelled by user")
                 sys.exit(0)
+
     
     @staticmethod
     def get_search_topic():
@@ -344,14 +365,19 @@ def main():
         print("\n[STEP 3] Displaying collected dorks...")
         ui = UserInterface()
         max_dorks = ui.display_dorks(dorks)
-        
         selection = ui.get_dork_selection(max_dorks)
+
         if selection == 'all':
             selected_dorks = dorks
             print(f"Selected all {len(dorks)} dorks")
         else:
-            selected_dorks = [dorks[selection]]
-            print(f"Selected dork: {selected_dorks[0]}")
+            selected_dorks = [dorks[i] for i in selection]
+
+            print(f"Selected {len(selected_dorks)} dorks:")
+            for d in selected_dorks:
+                print(f" - {d}")
+
+
         
         # Step 4: Get search topic
         print("\n[STEP 4] Getting search topic...")
