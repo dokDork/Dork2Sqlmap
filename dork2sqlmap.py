@@ -363,14 +363,14 @@ def main():
     
     try:
         # Step 1: Verify and install required tools
-        print("\n[STEP 1] Checking and installing required tools...")
+        print("\n\033[1m[STEP 1] Checking and installing required tools...\033[0m")
         tools_manager = SecurityToolsManager()
         if not tools_manager.verify_and_install_tools():
             print("Failed to setup required tools. Exiting.")
             sys.exit(1)
         
         # Step 2: Collect Google dorks
-        print("\n[STEP 2] Collecting Google dorks from database...")
+        print("\n\033[1m[STEP 2] Collecting Google dorks from database...\033[0m")
         dork_collector = DorkCollector()
         dorks = dork_collector.fetch_dorks()
         
@@ -379,7 +379,7 @@ def main():
             sys.exit(1)
         
         # Step 3: Display dorks and get user selection
-        print("\n[STEP 3] Displaying collected dorks...")
+        print("\n\033[1m[STEP 3] Displaying collected dorks...\033[0m")
         ui = UserInterface()
         max_dorks = ui.display_dorks(dorks)
         selection = ui.get_dork_selection(max_dorks)
@@ -397,16 +397,16 @@ def main():
 
         
         # Step 4: Get search topic
-        print("\n[STEP 4] Getting search topic...")
+        print("\n\033[1m[STEP 4] Getting search topic...\033[0m")
         topic = ui.get_search_topic()
         
         # Step 5: Open browser searches
-        print("\n[STEP 5] Opening Google searches in browser...")
+        print("\n\033[1m[STEP 5] Opening Google searches in browser...\033[0m")
         browser = BrowserAutomation()
         browser.open_google_searches(selected_dorks, topic)
         
         # Step 6: Collect URLs for testing
-        print("\n[STEP 6] Collecting URLs for security testing...")
+        print("\n\033[1m[STEP 6] Collecting URLs for security testing...\033[0m")
         urls = ui.get_urls()
         
         if not urls:
