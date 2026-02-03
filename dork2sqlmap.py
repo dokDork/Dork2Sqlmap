@@ -315,35 +315,22 @@ class TmuxManager:
             host = TmuxManager.clean_url(url)
 
             # Create window (use numeric index, safe for tmux)
-            subprocess.run([
-                'tmux', 'new-window',
-                '-t', self.session_name,
-                '-n', host.replace('.', '_')
-            ])
-
+            subprocess.run(['tmux', 'new-window','-t', self.session_name,'-n', host.replace('.', '_')])
             target = f"{self.session_name}:{i+1}"
 
             # Pane 0 → SQLMap
-            sqlmap_cmd = (
-                f'sqlmap -u "{url}" --force-ssl '
-                f'--random-agent --tamper=space2comment --batch --dbs'
-            )
-            subprocess.run(['tmux', 'send-keys', '-t', target, sqlmap_cmd, 'C-m'])
+            sqlmap_cmd = (f'sqlmap -u "{url}" --force-ssl --random-agent --tamper=space2comment --batch --dbs')
+            subprocess.run(['tmux', 'send-keys', '-t', target, sqlmap_cmd])
 
             # Split right → Pane 1 (ls)
             subprocess.run(['tmux', 'split-window', '-h', '-t', target])
-            subprocess.run(['tmux', 'send-keys', '-t', f'{target}.1', 'ls', 'C-m'])
+            sql_cmd2=(f'sqlmap -u "{url}" --force-ssl --random-agent --tamper=space2comment --batch --crawl=2 --dbs')
+            subprocess.run(['tmux', 'send-keys', '-t', f'{target}.1', sql_cmd2])
 
             # Split bottom from pane 0 → Pane 2 (gobuster)
             subprocess.run(['tmux', 'split-window', '-v', '-t', f'{target}.0'])
-
-            gobuster_cmd = (
-                f'gobuster dir -u {host} '
-                f'-x asp '
-                f'-w /usr/share/seclists/Discovery/Web-Content/'
-                f'raft-small-words-lowercase.txt'
-            )
-            subprocess.run(['tmux', 'send-keys', '-t', f'{target}.2', gobuster_cmd, 'C-m'])
+            gobuster_cmd = (f'gobuster dir -u {host} -x asp -w /usr/share/seclists/Discovery/Web-Content/raft-small-words-lowercase.txt')
+            subprocess.run(['tmux', 'send-keys', '-t', f'{target}.2', gobuster_cmd])
 
             # Clean layout
             subprocess.run(['tmux', 'select-layout', '-t', target, 'tiled'])
