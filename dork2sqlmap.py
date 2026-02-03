@@ -304,7 +304,6 @@ class TmuxManager:
 
     
     def setup_url_testing(self, urls):
-        """Setup tmux windows for URL testing (sqlmap + ls + gobuster)"""
         if not urls:
             print("No URLs provided for testing")
             return
@@ -314,28 +313,38 @@ class TmuxManager:
         for i, url in enumerate(urls):
             host = TmuxManager.clean_url(url)
 
-            # Create window (use numeric index, safe for tmux)
-            subprocess.run(['tmux', 'new-window','-t', self.session_name,'-n', host.replace('.', '_')])
+            subprocess.run(['tmux','new-window','-t',self.session_name,'-n',host.replace('.','_')])
             target = f"{self.session_name}:{i+1}"
 
-            # Pane 0 → SQLMap
-            sqlmap_cmd = (f'sqlmap -u "{url}" --force-ssl --random-agent --tamper=space2comment --batch --dbs')
-            subprocess.run(['tmux', 'send-keys', '-t', target, sqlmap_cmd])
+            # Pane 0 (sqlmap base)
+            pane_sqlmap = subprocess.check_output(
+                ['tmux','display-message','-p','-t',target,'#{pane_id}']
+            ).decode().strip()
 
-            # Split right → Pane 1 (ls)
-            subprocess.run(['tmux', 'split-window', '-h', '-t', target])
-            sql_cmd2=(f'sqlmap -u "{url}" --force-ssl --random-agent --tamper=space2comment --batch --crawl=2 --dbs')
-            subprocess.run(['tmux', 'send-keys', '-t', f'{target}.1', sql_cmd2])
+            sqlmap_cmd = f'sqlmap -u "{url}" --force-ssl --random-agent --tamper=space2comment --batch --dbs'
+            subprocess.run(['tmux','send-keys','-t',pane_sqlmap,sqlmap_cmd])
 
-            # Split bottom from pane 0 → Pane 2 (gobuster)
-            subprocess.run(['tmux', 'split-window', '-v', '-t', f'{target}.0'])
-            gobuster_cmd = (f'gobuster dir -u {host} -x asp -w /usr/share/seclists/Discovery/Web-Content/raft-small-words-lowercase.txt')
-            subprocess.run(['tmux', 'send-keys', '-t', f'{target}.2', gobuster_cmd])
+            # Split bottom → gobuster
+            pane_gobuster = subprocess.check_output(
+                ['tmux','split-window','-v','-t',pane_sqlmap,'-P','-F','#{pane_id}']
+            ).decode().strip()
 
-            # Clean layout
-            subprocess.run(['tmux', 'select-layout', '-t', target, 'tiled'])
+            gobuster_cmd = f'gobuster dir -u {host} -x asp -w /usr/share/seclists/Discovery/Web-Content/raft-small-words-lowercase.txt'
+            subprocess.run(['tmux','send-keys','-t',pane_gobuster,gobuster_cmd])
+
+            # Split right → sqlmap crawl (ALTO A DESTRA, SEMPRE)
+            pane_crawl = subprocess.check_output(
+                ['tmux','split-window','-h','-t',pane_sqlmap,'-P','-F','#{pane_id}']
+            ).decode().strip()
+
+            sqlmap_crawl = f'sqlmap -u "{url}" --force-ssl --random-agent --tamper=space2comment --batch --crawl=2 --dbs'
+            subprocess.run(['tmux','send-keys','-t',pane_crawl,sqlmap_crawl])
+
+            subprocess.run(['tmux','select-layout','-t',target,'tiled'])
 
             print(f"✓ Setup window for host: {host}")
+
+
 
 
     
