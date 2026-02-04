@@ -465,6 +465,8 @@ def main():
             print(f"✓ Each URL has SQLMap and Gobuster windows")
             print(f"\nAttaching to tmux session '{tmux_manager.session_name}'...")
             print("\033[0;32mUse 'Ctrl+b' then 'w' to show all windows\033[0m")
+            print("\033[0;32mUse 'Ctrl+b' then 'n' to show next window\033[0m")
+            print("\033[0;32mUse 'Ctrl+b' then 'p' to show previous window\033[0m")                        
             print("\033[0;32mUse 'Ctrl+b' then 'd' to detach from session\033[0m")
             print("\033[0;32mUse 'Ctrl+b' then ':kill-session' to kill tmux session\033[0m")
             choice = input("press enter to continue: ").strip().lower()
