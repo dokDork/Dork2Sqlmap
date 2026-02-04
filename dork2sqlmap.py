@@ -262,7 +262,7 @@ class UserInterface:
     def get_search_topic():
         """Get search topic from user"""
         while True:
-            topic = input("Enter search topic (e.g., 'demons and saints', 'food', etc.): ").strip()
+            topic = input("Enter search topic (e.g., +intext:""demons and saints"", +site:example.ai, etc.): ").strip()
             if topic:
                 return topic
             print("Please enter a valid search topic")
@@ -299,7 +299,7 @@ class BrowserAutomation:
         
         for i, dork in enumerate(dorks, 1):
             # Construct search query: +"topic" + dork
-            search_query = f'intext:"{topic}" {dork}'
+            search_query = f'{topic} {dork}'
             encoded_query = quote_plus(search_query)
             full_url = base_google_url + encoded_query
             
