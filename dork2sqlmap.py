@@ -90,8 +90,9 @@ class DorkCollector:
     def fetch_dorks(self):
 
         print("Select which type of Google Dork do you want to use")
-        print("[1] Google Dorks returning SQL-injection errors")
-        print("[2] Google Dorks returning pages with potentially injectable parameters")
+        print("[1] Google Dorks returning SQL-injection errors (few results but injection very likely)")
+        print("[2] Google Dorks returning pages with potentially injectable parameters (many results but injection unlikely)")
+        print("[3] Best SQL-injection Google Dorks according to me (dokDork)")        
         print("[all] Both types of Google Dorks")
 
         choice = input("Your choice: ").strip().lower()
