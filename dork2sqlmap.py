@@ -262,7 +262,7 @@ class UserInterface:
     def get_search_topic():
         """Get search topic from user"""
         while True:
-            topic = input("Enter search topic (e.g., +intext:""demons and saints"", +site:example.ai, etc.): ").strip()
+            topic = input("Enter search topic (e.g., +intext:\"demons and saints\", +site:example.ai, etc.): ").strip()
             if topic:
                 return topic
             print("Please enter a valid search topic")
