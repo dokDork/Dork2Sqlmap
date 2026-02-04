@@ -129,9 +129,6 @@ class DorkCollector:
             'inurl:index.asp?id=',            
             'inurl:.php?id=',
             'inurl:.asp?id=',
-            '"You have an error in your SQL syntax"',
-            'intext:"select * from"',
-            '"Warning: mysql_fetch_array() expects parameter 1"',
             'inurl:".php?cat="',
             'inurl:".asp?cat="',            
             'filetype:sql "sql backup"',
@@ -149,6 +146,10 @@ class DorkCollector:
             'filetype:sql inurl:dump',
             'filetype:env "DB_PASSWORD"',
             'filetype:sql "backup"'
+        ]
+
+        dorks_top = [
+
         ]
 
         if choice == "1":
