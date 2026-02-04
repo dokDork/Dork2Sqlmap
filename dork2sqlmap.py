@@ -116,7 +116,7 @@ class DorkCollector:
             '"You have an error in your SQL syntax near"',
             '"mySQL error with query"',
             '"ORA-00921: unexpected end of SQL command"'
-            '"supplied argument is not a valid MySQL result resource"'            
+        
         ]
 
         dorks_parameter = [
