@@ -143,8 +143,7 @@ class DorkCollector:
             'inurl:search.php?q=',
             'inurl:search.asp?q=',            
             'filetype:sql inurl:dump',
-            'filetype:env "DB_PASSWORD"',
-            'filetype:sql "backup"'
+            'filetype:env "DB_PASSWORD"'
         ]
 
         dorks_top = [
