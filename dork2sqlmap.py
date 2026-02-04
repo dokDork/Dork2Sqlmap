@@ -132,7 +132,6 @@ class DorkCollector:
             'inurl:".php?cat="',
             'inurl:".asp?cat="',            
             'filetype:sql "sql backup"',
-            '"ORA-00933: SQL command not properly ended"',
             'inurl:product.php?id=',
             'inurl:product.asp?id=',
             'inurl:page.php?id=',
