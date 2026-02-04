@@ -101,7 +101,7 @@ class DorkCollector:
             'inurl:".php?id=" "You have an error in your SQL syntax"',
             'inurl:"id=" intext:"MySQL Error: 1064" "Session halted."',
             'inurl:index.php?id= intext:"mysql_fetch_array"',
-            'inurl:advsearch.php?module= intext:sql syntax',
+            'inurl:advsearch.php?module= intext:"sql syntax"',
             '"Warning: mysql_connect(): Access denied for user" "on line" -help -forum',
             '"Unable to jump to row" "on MySQL result index" "on line"',
             'filetype:asp "[ODBC SQL"',
@@ -115,8 +115,13 @@ class DorkCollector:
             '"Supplied argument is not a valid MySQL result resource"',
             '"You have an error in your SQL syntax near"',
             '"mySQL error with query"',
-            '"ORA-00921: unexpected end of SQL command"'
-        
+            '"ORA-00921: unexpected end of SQL command"',
+            'inurl:"id=" intext:"Warning: mysql_num_rows()"',
+            'inurl:"id=" "You have an error in your SQL syntax"',
+            'inurl:"id=" intext:"MySQL Error: 1064"',
+            'inurl:"id=" intext:"mysql_fetch_array"',
+            'inurl:"id=" intext:"sql syntax"',
+            'filetype:php "[ODBC SQL"'        
         ]
 
         dorks_parameter = [
