@@ -147,15 +147,51 @@ class DorkCollector:
         ]
 
         dorks_top = [
-
+            'inurl:"index.php?id=" intext:"Warning: mysql_num_rows()"',
+            'inurl:".php?id=" "You have an error in your SQL syntax"',
+            'inurl:"id=" intext:"MySQL Error: 1064" "Session halted."',
+            'inurl:index.php?id= intext:"mysql_fetch_array"',
+            'filetype:asp "[ODBC SQL"',
+            '"[SQL Server Driver][SQL Server]Line 1: Incorrect syntax near" -forum -thread',
+            '"Warning: mysql_query()" "invalid query"',
+            '"Supplied argument is not a valid PostgreSQL result"',
+            '"PostgreSQL query failed: ERROR: parser: parse error"',
+            '"Supplied argument is not a valid MySQL result resource"',
+            '"You have an error in your SQL syntax near"',
+            '"mySQL error with query"',
+            'inurl:"id=" intext:"Warning: mysql_num_rows()"',
+            'inurl:"id=" "You have an error in your SQL syntax"',
+            'inurl:"id=" intext:"MySQL Error: 1064"',
+            'inurl:"id=" intext:"mysql_fetch_array"',
+            'inurl:"id=" intext:"sql syntax"',
+            'filetype:php "[ODBC SQL"',        
+            'inurl:index.php?id=',
+            'inurl:index.asp?id=',            
+            'inurl:.php?id=',
+            'inurl:.asp?id=',
+            'inurl:".php?cat="',
+            'inurl:".asp?cat="',            
+            'filetype:sql "sql backup"',
+            'inurl:product.php?id=',
+            'inurl:product.asp?id=',
+            'inurl:page.php?id=',
+            'inurl:page.asp?id=',            
+            'inurl:view.php?id=',
+            'inurl:view.asp?id=',            
+            'inurl:.php?id= intext:"mysql"',
+            'inurl:.asp?id= intext:"mysql"',            
+            'inurl:search.php?q=',
+            'inurl:search.asp?q=',            
         ]
 
         if choice == "1":
             dorks = dorks_error
         elif choice == "2":
             dorks = dorks_parameter
+        elif choice == "3":
+            dorks = dorks_top            
         elif choice == "all":
-            dorks = dorks_error + dorks_parameter
+            dorks = dorks_error + dorks_parameter + dorks_top
         else:
             print("Invalid choice, defaulting to ALL dorks")
             dorks = dorks_error + dorks_parameter
