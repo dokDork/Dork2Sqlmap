@@ -3,7 +3,7 @@
 
 
 [![License](https://img.shields.io/badge/license-MIT-_red.svg)](https://opensource.org/licenses/MIT)  
-<img src="https://github.com/dokDork/red-team-penetration-test-script/raw/main/images/dork2sqlmap.png" width="250" height="250">  
+<img src="https://github.com/dokDork/Dork2Sqlmap/raw/main/images/dork2sqlmap.png" width="250" height="250">  
   
 ## Description
 **Dork2Sqlmap** is a lightweight tool that lets users select SQL injection–related Google Dorks and automatically generates ready-to-use sqlmap commands for authorized security testing and bug bounty workflows.
