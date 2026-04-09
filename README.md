@@ -1,9 +1,13 @@
 # Dork2Sqlmap
 
-
-
 [![License](https://img.shields.io/badge/license-MIT-_red.svg)](https://opensource.org/licenses/MIT)  
 <img src="https://github.com/dokDork/Dork2Sqlmap/raw/main/images/dork2sqlmap.png" width="250" height="250">  
+  
+## Disclaimer
+This tool is provided for authorized security testing, research, and educational purposes only.
+If you use this tool for any activity involving attacks, exploitation, or security testing against individuals, companies, systems, or networks, you must have explicit prior authorization from the relevant person, organization, or asset owner.
+
+Unauthorized use is strictly prohibited. The author assumes no responsibility for any misuse or damage caused by this tool.
   
 ## Description
 **Dork2Sqlmap** is a lightweight tool that lets users select SQL injection–related Google Dorks and automatically generates ready-to-use sqlmap commands for authorized security testing and bug bounty workflows.
